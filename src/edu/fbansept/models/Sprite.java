@@ -2,7 +2,7 @@ package edu.fbansept.models;
 
 import java.awt.*;
 
-public abstract class Sprite {
+public abstract class Sprite implements Dessinable {
 
     protected int x;
     protected int y;
@@ -14,8 +14,6 @@ public abstract class Sprite {
         this.largeur = largeur;
         this.hauteur = hauteur;
     }
-
-    public abstract void dessine(Graphics2D dessin);
 
     public int getX() {
         return x;
