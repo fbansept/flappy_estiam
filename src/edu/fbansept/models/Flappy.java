@@ -2,17 +2,23 @@ package edu.fbansept.models;
 
 import edu.fbansept.Fenetre;
 
-public class Flappy extends Sprite{
+import java.awt.*;
+
+public class Flappy extends MovingSprite{
 
     public Flappy() {
-        super(50, Fenetre.HAUTEUR / 2, 30, 30);
-        this.vitesseY = 0;
+        super(50, Fenetre.HAUTEUR / 2, 30, 30, 0, 0);
     }
 
-    public Flappy(int x, int y, int largeur, int hauteur, float vitesseY) {
-        super(x, y, largeur, hauteur);
-        this.vitesseY = vitesseY;
+    @Override
+    public void dessine(Graphics2D dessin) {
+        dessin.setColor(Color.red);
+        dessin.fillOval( x,y - hauteur/2,largeur, hauteur);
     }
 
-    protected float vitesseY;
+    @Override
+    public void deplacement() {
+        vitesseY += 0.08f;
+        y += vitesseY;
+    }
 }

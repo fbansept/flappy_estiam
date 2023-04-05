@@ -6,6 +6,8 @@ import edu.fbansept.models.Tuyau;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,8 @@ public class Fenetre extends Canvas {
 
     public static int LARGEUR = 500;
     public static int HAUTEUR = 500;
+
+    protected boolean spacePressed = false;
 
 
     public Fenetre() {
@@ -36,6 +40,30 @@ public class Fenetre extends Canvas {
         frame.requestFocus();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        frame.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+
+                    if(!spacePressed) {
+                        flappy.setVitesseY(-3);
+                    }
+                    spacePressed = true;
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    spacePressed = false;
+                }
+            }
+        });
 
         createBufferStrategy(2);
         this.setFocusable(false);
@@ -72,20 +100,13 @@ public class Fenetre extends Canvas {
                 dessin.setColor(Color.white);
                 dessin.fillRect(0,0,LARGEUR,HAUTEUR);
 
-                dessin.setColor(Color.red);
-                dessin.fillOval(
-                        flappy.getX(),
-                        flappy.getY() - flappy.getHauteur()/2,
-                        flappy.getLargeur(),
-                        flappy.getHauteur());
+                flappy.deplacement();
+                flappy.dessine(dessin);
 
                 for(int i = 0; i < listeTuyaux.length; i++) {
                     Tuyau tuyau = listeTuyaux[i];
-                    tuyau.setX((int)(tuyau.getX() - tuyau.getVitesseX()));
-
-                    dessin.setColor(Color.green);
-                    dessin.fillRect(tuyau.getX(),tuyau.getY(),tuyau.getLargeur(), tuyau.getHauteur());
-
+                    tuyau.deplacement();
+                    tuyau.dessine(dessin);
                 }
 
                 dessin.dispose();

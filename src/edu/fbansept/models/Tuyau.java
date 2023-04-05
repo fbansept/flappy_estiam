@@ -1,11 +1,16 @@
 package edu.fbansept.models;
 
-public class Tuyau extends ScrollingSprite {
+import java.awt.*;
 
+public class Tuyau extends ScrollingSprite {
 
     public Tuyau(int x, int y, int largeur, int hauteur, float vitesseX) {
         super(x, y, largeur, hauteur, vitesseX);
     }
 
-
+    @Override
+    public void dessine(Graphics2D dessin) {
+        dessin.setColor(Color.green);
+        dessin.fillRect(x,y,largeur, hauteur);
+    }
 }
