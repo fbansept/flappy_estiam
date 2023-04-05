@@ -4,7 +4,7 @@ import edu.fbansept.Fenetre;
 
 import java.awt.*;
 
-public class Flappy extends MovingSprite{
+public class Flappy extends MovingSprite implements Collisionnable{
 
     public Flappy() {
         super(50, Fenetre.HAUTEUR / 2, 30, 30, 0, 0);
@@ -14,6 +14,11 @@ public class Flappy extends MovingSprite{
     public void dessine(Graphics2D dessin) {
         dessin.setColor(Color.red);
         dessin.fillOval( x,y - hauteur/2,largeur, hauteur);
+    }
+
+    @Override
+    public boolean collision(Collisionnable target) {
+        return Collisionnable.super.collision(target) || y + hauteur > Fenetre.HAUTEUR;
     }
 
     @Override

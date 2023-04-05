@@ -107,6 +107,9 @@ public class Fenetre extends Canvas {
                     Tuyau tuyau = listeTuyaux[i];
                     tuyau.deplacement();
                     tuyau.dessine(dessin);
+                    if(flappy.collision(tuyau)) {
+                        System.out.println("collision");
+                    }
                 }
 
                 dessin.dispose();
